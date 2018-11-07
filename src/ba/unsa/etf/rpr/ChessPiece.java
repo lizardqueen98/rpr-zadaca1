@@ -6,9 +6,7 @@ public abstract class ChessPiece {
     public enum Color{BLACK,WHITE};
     private String position;
     private Color boja;
-    //public static Character[] slova={'a', 'b','c', 'd', 'e', 'f', 'g', 'h'};
     public static String slova="abcdefgh";
-    //public static Character[] brojevi={'1', '2','3', '4', '5', '6', '7', '8'};
     public static String brojevi="12345678";
     public String getPosition(){
         return position;
@@ -17,14 +15,19 @@ public abstract class ChessPiece {
         return boja;
     }
     public ChessPiece(String position, Color boja){
+        boolean ima_slovo=false;
+        boolean ima_broj=false;
+        if(position.equals("")) throw new IllegalArgumentException("Neispravna pozicija");
         for(int i=0;i<8;i++) {
-            if (toLowerCase(position.charAt(0))!=slova.charAt(i)) throw new IllegalArgumentException("Neispravna pozicija");
-            if (position.charAt(1)!=brojevi.charAt(i)) throw new IllegalArgumentException("Neispravna pozicija");
+            if (toLowerCase(position.charAt(0))==slova.charAt(i)) ima_slovo=true;
+            if (position.charAt(1)==brojevi.charAt(i)) ima_broj=true;
         }
-        this.position=position;
-        this.boja=boja;
+        if(ima_slovo && ima_broj) {
+            this.position = position;
+            this.boja = boja;
+        }
+        else throw new IllegalArgumentException("Neispravna pozicija");
     }
-    public abstract void move(String position);
 
     public void setPosition(String position) {
         this.position = position;
@@ -33,4 +36,5 @@ public abstract class ChessPiece {
     public void setBoja(Color boja) {
         this.boja = boja;
     }
+    public abstract void move(String position) throws IllegalChessMoveException;
 }

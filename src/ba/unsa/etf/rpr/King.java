@@ -7,11 +7,8 @@ public class King extends ChessPiece {
         super(position,boja);
     }
     @Override
-    public void move(String position){
-        for(int i=0;i<8;i++) {
-            if (toLowerCase(position.charAt(0))!=slova.charAt(i)) throw new IllegalArgumentException("Neispravna pozicija");
-            if (position.charAt(1)!=brojevi.charAt(i)) throw new IllegalArgumentException("Neispravna pozicija");
-        }
+    public void move(String position) throws IllegalChessMoveException{
+        new King(position,this.getColor());
         int indeks1 = slova.indexOf(this.getPosition().charAt(0));
         int indeks2 = brojevi.indexOf(this.getPosition().charAt(1));
         if(position.charAt(0)==slova.charAt(indeks1) || position.charAt(0)==slova.charAt(indeks1+1) || position.charAt(0)==slova.charAt(indeks1-1)){
