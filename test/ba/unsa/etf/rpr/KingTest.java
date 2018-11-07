@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+//import static ba.unsa.etf.rpr.ChessPiece
 class KingTest {
 
     @org.junit.jupiter.api.Test
