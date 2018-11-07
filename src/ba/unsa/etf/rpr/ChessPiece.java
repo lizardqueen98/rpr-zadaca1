@@ -17,7 +17,7 @@ public abstract class ChessPiece {
     public ChessPiece(String position, Color boja){
         boolean ima_slovo=false;
         boolean ima_broj=false;
-        if(position.equals("")) throw new IllegalArgumentException("Neispravna pozicija");
+        if(position.equals("") || position.length()>2) throw new IllegalArgumentException("Neispravna pozicija");
         for(int i=0;i<8;i++) {
             if (toLowerCase(position.charAt(0))==slova.charAt(i)) ima_slovo=true;
             if (position.charAt(1)==brojevi.charAt(i)) ima_broj=true;
