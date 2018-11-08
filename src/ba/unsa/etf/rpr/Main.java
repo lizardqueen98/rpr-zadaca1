@@ -8,10 +8,10 @@ public class Main {
              System.out.println(b.board.get("c3").getPosition());
              if(b.board.containsKey("c3")) System.out.println("ima");
              if(b.board.containsKey("b1")) System.out.println("nema");*/
-             b.move(Queen.class, ChessPiece.Color.BLACK, "A5");
+             b.move(Bishop.class, ChessPiece.Color.BLACK, "d7");
          }
          catch(IllegalChessMoveException e){
-             System.out.println("aaaaaa");
+             System.out.println(e.getMessage());
          }
     }
 }

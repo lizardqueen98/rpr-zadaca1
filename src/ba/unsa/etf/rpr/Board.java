@@ -23,41 +23,41 @@ public class Board {
                 }
                 else if(indeks1>indeks3 && indeks2<indeks4){
                     for(int i=indeks3+1;i<indeks1;i++){
-                        if(board.containsKey(slova.charAt(i)+brojevi.charAt(6-i))) return true;
+                        if(board.containsKey(String.valueOf(slova.charAt(i))+String.valueOf(brojevi.charAt(6-i)))) return true;
                     }
                 }
                 else if(indeks1<indeks3 && indeks2<indeks4){
                     for(int i=indeks1+1;i<indeks3;i++){
-                        if(board.containsKey(slova.charAt(6-i)+brojevi.charAt(6-i))) return true;
+                        if(board.containsKey(String.valueOf(slova.charAt(6-i))+String.valueOf(brojevi.charAt(6-i)))) return true;
                     }
                 }
                 else if(indeks1<indeks3 && indeks2>indeks4){
                     for(int i=indeks1+1;i<indeks3;i++){
-                        if(board.containsKey(slova.charAt(6-i)+brojevi.charAt(i))) return true;
+                        if(board.containsKey(String.valueOf(slova.charAt(6-i))+String.valueOf(brojevi.charAt(i)))) return true;
                     }
                 }
             }
             else if(indeks1==indeks3 && (type.equals(Queen.class) || type.equals(Rook.class))){
                 if(indeks2>indeks4){
                     for(int i=indeks4+1;i<indeks2;i++){
-                        if(board.containsKey(slova.charAt(indeks1)+brojevi.charAt(i))) return true;
+                        if(board.containsKey(String.valueOf(slova.charAt(indeks1))+String.valueOf(brojevi.charAt(i)))) return true;
                     }
                 }
                 else{
                     for(int i=indeks2+1;i<indeks4;i++){
-                        if(board.containsKey(slova.charAt(indeks1)+brojevi.charAt(i))) return true;
+                        if(board.containsKey(String.valueOf(slova.charAt(indeks1))+String.valueOf(brojevi.charAt(i)))) return true;
                     }
                 }
             }
             else if(indeks2==indeks4 && (type.equals(Queen.class) || type.equals(Rook.class))){
                 if(indeks1>indeks3){
                     for(int i=indeks3+1;i<indeks1;i++){
-                       if(board.containsKey(slova.charAt(i)+brojevi.charAt(indeks2))) return true;
+                       if(board.containsKey(String.valueOf(slova.charAt(i))+String.valueOf(brojevi.charAt(indeks2)))) return true;
                     }
                 }
                 else{
                     for(int i=indeks1+1;i<indeks3;i++){
-                        if(board.containsKey(slova.charAt(i)+brojevi.charAt(indeks2))) return true;
+                        if(board.containsKey(String.valueOf(slova.charAt(i))+String.valueOf(brojevi.charAt(indeks2)))) return true;
                     }
                 }
             }
