@@ -14,7 +14,7 @@ public class Board {
         int indeks2 = brojevi.indexOf(position1.charAt(1));
         int indeks3 = slova.indexOf(position2.charAt(0));
         int indeks4 = brojevi.indexOf(position2.charAt(1));
-            if(Math.abs(indeks1-indeks3)==Math.abs(indeks2-indeks4)){
+            if(Math.abs(indeks1-indeks3)==Math.abs(indeks2-indeks4) && (type.isInstance(new Queen("a1", ChessPiece.Color.WHITE)) || type.isInstance(new Bishop("a1", ChessPiece.Color.WHITE)))){
                 if(indeks1>indeks3 && indeks2>indeks4){
                     for(int i=indeks3+1;i<indeks1;i++){
                         if(board.containsKey(slova.charAt(i)+brojevi.charAt(i))) return true;
@@ -36,7 +36,7 @@ public class Board {
                     }
                 }
             }
-            else if(indeks1==indeks3){
+            else if(indeks1==indeks3 && (type.isInstance(new Queen("a1", ChessPiece.Color.WHITE)) || type.isInstance(new Rook("a1", ChessPiece.Color.WHITE)))){
                 if(indeks2>indeks4){
                     for(int i=indeks4+1;i<indeks2;i++){
                         if(board.containsKey(slova.charAt(indeks1)+brojevi.charAt(i))) return true;
@@ -48,7 +48,7 @@ public class Board {
                     }
                 }
             }
-            else if(indeks2==indeks4){
+            else if(indeks2==indeks4 && (type.isInstance(new Queen("a1", ChessPiece.Color.WHITE)) || type.isInstance(new Rook("a1", ChessPiece.Color.WHITE)))){
                 if(indeks1>indeks3){
                     for(int i=indeks3+1;i<indeks1;i++){
                        if(board.containsKey(slova.charAt(i)+brojevi.charAt(indeks2))) return true;
