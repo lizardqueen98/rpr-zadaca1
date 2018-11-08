@@ -156,50 +156,52 @@ public class Board {
                 if (entry.getValue() instanceof Queen) {
                     if (entry.getValue().getColor() == color) {
                         String oldPosition = entry.getKey();
-                        if(Preskace(oldPosition, position, Queen.class)) throw new IllegalChessMoveException("Nelegalan potez, preskace.");
+                        if(Preskace(oldPosition, position, Queen.class)) throw new IllegalChessMoveException("Nelegalan potez.");
                         try {
-                            if(board.containsKey(position)){
-                                board.get(oldPosition).move(position);
-                                board.replace(position,entry.getValue());
-                                board.remove(oldPosition);
-                                break;
-                            }
-                            else{
-                                board.get(oldPosition).move(position);
-                                board.put(position, entry.getValue());
-                                board.remove(oldPosition);
-                                break;
-                            }
-                        } catch (Exception e) {
-                            throw e;
+                            board.get(oldPosition).move(position);
+                        }
+                        catch(IllegalChessMoveException e) {
+                            continue;
+                        }
+                        if(board.containsKey(position)){
+                            board.replace(position,entry.getValue());
+                            board.remove(oldPosition);
+                            return;
+                        }
+                        else{
+                            board.put(position, entry.getValue());
+                            board.remove(oldPosition);
+                            return;
                         }
                     }
                 }
+                throw new IllegalChessMoveException("Nelegalan potez.");
         }
             else if(type.equals(Bishop.class)){
                 for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                     if (entry.getValue() instanceof Bishop) {
                         if (entry.getValue().getColor() == color) {
                             String oldPosition = entry.getKey();
-                            if(Preskace(oldPosition, position, Bishop.class)) throw new IllegalChessMoveException("Nelegalan potez, preskace.");
-                                try {
-                                    if(board.containsKey(position)){
-                                        board.get(oldPosition).move(position);
-                                        board.replace(position,entry.getValue());
-                                        board.remove(oldPosition);
-                                        break;
-                                    }
-                                    else{
-                                        board.get(oldPosition).move(position);
-                                        board.put(position, entry.getValue());
-                                        board.remove(oldPosition);
-                                        break;
-                                    }
-                                } catch (Exception e) {
-                                    throw e;
-                                }
+                            if(Preskace(oldPosition, position, Bishop.class)) throw new IllegalChessMoveException("Nelegalan potez.");
+                            try {
+                                board.get(oldPosition).move(position);
+                            }
+                            catch(IllegalChessMoveException e) {
+                                continue;
+                            }
+                            if(board.containsKey(position)){
+                                board.replace(position,entry.getValue());
+                                board.remove(oldPosition);
+                                return;
+                            }
+                            else{
+                                board.put(position, entry.getValue());
+                                board.remove(oldPosition);
+                                return;
+                            }
                         }
                     }
+                throw new IllegalChessMoveException("Nelegalan potez.");
             }
 
             else if(type.equals(Rook.class)){
@@ -207,26 +209,28 @@ public class Board {
                     if (entry.getValue() instanceof Rook) {
                         if (entry.getValue().getColor() == color) {
                             String oldPosition = entry.getKey();
-                            if(Preskace(oldPosition, position, Rook.class)) throw new IllegalChessMoveException("Nelegalan potez, preskace.");
-                                try {
-                                    if(board.containsKey(position)){
-                                        board.get(oldPosition).move(position);
-                                        board.replace(position,entry.getValue());
-                                        board.remove(oldPosition);
-                                        break;
-                                    }
-                                    else{
-                                        board.get(oldPosition).move(position);
-                                        board.put(position, entry.getValue());
-                                        board.remove(oldPosition);
-                                        break;
-                                    }
-                                } catch (Exception e) {
-                                    throw e;
-                                }
+                            if(Preskace(oldPosition, position, Rook.class)) throw new IllegalChessMoveException("Nelegalan potez.");
+                            try {
+                                board.get(oldPosition).move(position);
+                            }
+                            catch(IllegalChessMoveException e) {
+                                continue;
+                            }
+                            if(board.containsKey(position)){
+                                board.replace(position,entry.getValue());
+                                board.remove(oldPosition);
+                                return;
+                            }
+                            else{
+                                board.put(position, entry.getValue());
+                                board.remove(oldPosition);
+                                return;
+                            }
                         }
                     }
-            }else if(type.equals(Pawn.class)){
+                throw new IllegalChessMoveException("Nelegalan potez.");
+            }
+            else if(type.equals(Pawn.class)){
                 for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                     if (entry.getValue() instanceof Pawn){
 
