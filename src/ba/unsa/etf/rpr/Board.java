@@ -3,8 +3,48 @@ package ba.unsa.etf.rpr;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static ba.unsa.etf.rpr.ChessPiece.brojevi;
+import static ba.unsa.etf.rpr.ChessPiece.slova;
+
+
 public class Board {
     public Map<String,ChessPiece> board;
+    private boolean kraljicaPreskace(String position1, String position2){
+        int indeks1 = slova.indexOf(position1.charAt(0));
+        int indeks2 = brojevi.indexOf(position1.charAt(1));
+        int indeks3 = slova.indexOf(position2.charAt(0));
+        int indeks4 = brojevi.indexOf(position2.charAt(1));
+        //for(Map.Entry<String,ChessPiece> entry : board.entrySet()){
+            if(Math.abs(indeks1-indeks3)==Math.abs(indeks2-indeks4)){
+
+            }
+            else if(indeks1==indeks3){
+                if(indeks2>indeks4){
+                    for(int i=indeks4+1;i<indeks2;i++){
+                        if(board.containsKey(slova.charAt(indeks1)+brojevi.charAt(i))) return true;
+                    }
+                }
+                else{
+                    for(int i=indeks2+1;i<indeks4;i++){
+                        if(board.containsKey(slova.charAt(indeks1)+brojevi.charAt(i))) return true;
+                    }
+                }
+            }
+            else if(indeks2==indeks4){
+                if(indeks1>indeks3){
+                    for(int i=indeks3+1;i<indeks1;i++){
+                       if(board.containsKey(slova.charAt(i)+brojevi.charAt(indeks2))) return true;
+                    }
+                }
+                else{
+                    for(int i=indeks1+1;i<indeks3;i++){
+                        if(board.containsKey(slova.charAt(i)+brojevi.charAt(indeks2))) return true;
+                    }
+                }
+            }
+        //}
+        return false;
+    }
     public Board(){
         board = new TreeMap<>();
         board.put("a1",new Rook("a1", ChessPiece.Color.WHITE));
@@ -52,17 +92,18 @@ public class Board {
                                     board.get(oldPosition).move(position);
                                     board.replace(position,entry.getValue());
                                     board.remove(oldPosition);
+                                    break;
                                 }
                                 else{
                                     board.get(oldPosition).move(position);
                                     board.put(position, entry.getValue());
                                     board.remove(oldPosition);
+                                    break;
                                 }
                             } catch (Exception e) {
                                 throw e;
                             }
                         }
-                        break;
                     }
             }
             else if(type.getName().equals("ba.unsa.etf.rpr.King")){
@@ -75,17 +116,18 @@ public class Board {
                                 board.get(oldPosition).move(position);
                                 board.replace(position,entry.getValue());
                                 board.remove(oldPosition);
+                                break;
                             }
                             else{
                                 board.get(oldPosition).move(position);
                                 board.put(position, entry.getValue());
                                 board.remove(oldPosition);
+                                break;
                             }
                         } catch (Exception e) {
                             throw e;
                         }
                     }
-                    break;
                 }
         }
         else if(type.getName().equals("ba.unsa.etf.rpr.Queen")){
@@ -98,17 +140,18 @@ public class Board {
                                 board.get(oldPosition).move(position);
                                 board.replace(position,entry.getValue());
                                 board.remove(oldPosition);
+                                break;
                             }
                             else{
                                 board.get(oldPosition).move(position);
                                 board.put(position, entry.getValue());
                                 board.remove(oldPosition);
+                                break;
                             }
                         } catch (Exception e) {
                             throw e;
                         }
                     }
-                    break;
                 }
         }
     }
