@@ -4,13 +4,13 @@ public class Main {
      public static void main(String[] args) {
          Board b = new Board();
          try {
-             b.move(Knight.class, ChessPiece.Color.WHITE, "C3");
+             /*b.move(Knight.class, ChessPiece.Color.WHITE, "C3");
              System.out.println(b.board.get("c3").getPosition());
              if(b.board.containsKey("c3")) System.out.println("ima");
-             if(b.board.containsKey("b1")) System.out.println("nema");
-             System.out.println("aaaaaa");
+             if(b.board.containsKey("b1")) System.out.println("nema");*/
+             b.move(Queen.class, ChessPiece.Color.BLACK, "A5");
          }
-         catch(Exception e){
+         catch(IllegalChessMoveException e){
              System.out.println("aaaaaa");
          }
     }
