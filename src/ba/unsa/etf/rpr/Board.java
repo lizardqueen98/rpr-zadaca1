@@ -107,23 +107,24 @@ public class Board {
                         if (entry.getValue().getColor() == color) {
                             String oldPosition = entry.getKey();
                             try {
-                                if(board.containsKey(position)){
-                                    board.get(oldPosition).move(position);
-                                    board.replace(position,entry.getValue());
-                                    board.remove(oldPosition);
-                                    break;
-                                }
-                                else{
-                                    board.get(oldPosition).move(position);
-                                    board.put(position, entry.getValue());
-                                    board.remove(oldPosition);
-                                    break;
-                                }
-                            } catch (Exception e) {
-                                throw e;
+                                board.get(oldPosition).move(position);
+                            }
+                            catch(IllegalChessMoveException e) {
+                                continue;
+                            }
+                            if(board.containsKey(position)){
+                                board.replace(position,entry.getValue());
+                                board.remove(oldPosition);
+                                return;
+                            }
+                            else{
+                                board.put(position, entry.getValue());
+                                board.remove(oldPosition);
+                                return;
                             }
                         }
                     }
+                    throw new IllegalChessMoveException("Nelegalan potez.");
             }
             else if(type.equals(King.class)){
             for(Map.Entry<String,ChessPiece> entry : board.entrySet())
@@ -131,23 +132,24 @@ public class Board {
                     if (entry.getValue().getColor() == color) {
                         String oldPosition = entry.getKey();
                         try {
-                            if(board.containsKey(position)){
-                                board.get(oldPosition).move(position);
-                                board.replace(position,entry.getValue());
-                                board.remove(oldPosition);
-                                break;
-                            }
-                            else{
-                                board.get(oldPosition).move(position);
-                                board.put(position, entry.getValue());
-                                board.remove(oldPosition);
-                                break;
-                            }
-                        } catch (Exception e) {
-                            throw e;
+                            board.get(oldPosition).move(position);
+                        }
+                        catch(IllegalChessMoveException e) {
+                            continue;
+                        }
+                        if(board.containsKey(position)){
+                            board.replace(position,entry.getValue());
+                            board.remove(oldPosition);
+                            return;
+                        }
+                        else{
+                            board.put(position, entry.getValue());
+                            board.remove(oldPosition);
+                            return;
                         }
                     }
                 }
+                throw new IllegalChessMoveException("Nelegalan potez.");
         }
         else if(type.equals(Queen.class)){
             for(Map.Entry<String,ChessPiece> entry : board.entrySet())
@@ -223,6 +225,11 @@ public class Board {
                                     throw e;
                                 }
                         }
+                    }
+            }else if(type.equals(Pawn.class)){
+                for(Map.Entry<String,ChessPiece> entry : board.entrySet())
+                    if (entry.getValue() instanceof Pawn){
+
                     }
             }
     }
