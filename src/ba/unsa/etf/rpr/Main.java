@@ -2,12 +2,16 @@ package ba.unsa.etf.rpr;
 
 public class Main {
      public static void main(String[] args) {
-         King k = new King("E1", ChessPiece.Color.WHITE);
+         Board b = new Board();
          try {
-             k.move("D2");
+             b.move(Knight.class, ChessPiece.Color.WHITE, "C3");
+             System.out.println(b.board.get("c3").getPosition());
+             if(b.board.containsKey("c3")) System.out.println("ima");
+             if(b.board.containsKey("b1")) System.out.println("nema");
+             System.out.println("aaaaaa");
          }
          catch(Exception e){
-
+             System.out.println("aaaaaa");
          }
     }
 }

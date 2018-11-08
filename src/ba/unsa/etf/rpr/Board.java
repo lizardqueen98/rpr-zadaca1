@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Board {
-    private Map<String,ChessPiece> board;
+    public Map<String,ChessPiece> board;
     public Board(){
         board = new TreeMap<>();
         board.put("a1",new Rook("a1", ChessPiece.Color.WHITE));
@@ -41,8 +41,76 @@ public class Board {
         board.put("h8",new Rook("h8", ChessPiece.Color.BLACK));
 
     }
-    public void move(Class type, ChessPiece.Color color, String position){
-
+    public void move(Class type, ChessPiece.Color color, String position) throws IllegalChessMoveException{
+            if(type.getName().equals("ba.unsa.etf.rpr.Knight")){
+                for(Map.Entry<String,ChessPiece> entry : board.entrySet())
+                    if (entry.getValue() instanceof Knight) {
+                        if (entry.getValue().getColor() == color) {
+                            String oldPosition = entry.getKey();
+                            try {
+                                if(board.containsKey(position)){
+                                    board.get(oldPosition).move(position);
+                                    board.replace(position,entry.getValue());
+                                    board.remove(oldPosition);
+                                }
+                                else{
+                                    board.get(oldPosition).move(position);
+                                    board.put(position, entry.getValue());
+                                    board.remove(oldPosition);
+                                }
+                            } catch (Exception e) {
+                                throw e;
+                            }
+                        }
+                        break;
+                    }
+            }
+            else if(type.getName().equals("ba.unsa.etf.rpr.King")){
+            for(Map.Entry<String,ChessPiece> entry : board.entrySet())
+                if (entry.getValue() instanceof King) {
+                    if (entry.getValue().getColor() == color) {
+                        String oldPosition = entry.getKey();
+                        try {
+                            if(board.containsKey(position)){
+                                board.get(oldPosition).move(position);
+                                board.replace(position,entry.getValue());
+                                board.remove(oldPosition);
+                            }
+                            else{
+                                board.get(oldPosition).move(position);
+                                board.put(position, entry.getValue());
+                                board.remove(oldPosition);
+                            }
+                        } catch (Exception e) {
+                            throw e;
+                        }
+                    }
+                    break;
+                }
+        }
+        else if(type.getName().equals("ba.unsa.etf.rpr.Queen")){
+            for(Map.Entry<String,ChessPiece> entry : board.entrySet())
+                if (entry.getValue() instanceof Queen) {
+                    if (entry.getValue().getColor() == color) {
+                        String oldPosition = entry.getKey();
+                        try {
+                            if(board.containsKey(position)){
+                                board.get(oldPosition).move(position);
+                                board.replace(position,entry.getValue());
+                                board.remove(oldPosition);
+                            }
+                            else{
+                                board.get(oldPosition).move(position);
+                                board.put(position, entry.getValue());
+                                board.remove(oldPosition);
+                            }
+                        } catch (Exception e) {
+                            throw e;
+                        }
+                    }
+                    break;
+                }
+        }
     }
     public void move(String oldPosition, String newPosition){
 
