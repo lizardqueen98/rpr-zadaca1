@@ -9,14 +9,32 @@ import static ba.unsa.etf.rpr.ChessPiece.slova;
 
 public class Board {
     public Map<String,ChessPiece> board;
-    private boolean kraljicaPreskace(String position1, String position2){
+    private boolean Preskace(String position1, String position2, Class type){
         int indeks1 = slova.indexOf(position1.charAt(0));
         int indeks2 = brojevi.indexOf(position1.charAt(1));
         int indeks3 = slova.indexOf(position2.charAt(0));
         int indeks4 = brojevi.indexOf(position2.charAt(1));
-        //for(Map.Entry<String,ChessPiece> entry : board.entrySet()){
             if(Math.abs(indeks1-indeks3)==Math.abs(indeks2-indeks4)){
-
+                if(indeks1>indeks3 && indeks2>indeks4){
+                    for(int i=indeks3+1;i<indeks1;i++){
+                        if(board.containsKey(slova.charAt(i)+brojevi.charAt(i))) return true;
+                    }
+                }
+                else if(indeks1>indeks3 && indeks2<indeks4){
+                    for(int i=indeks3+1;i<indeks1;i++){
+                        if(board.containsKey(slova.charAt(i)+brojevi.charAt(6-i))) return true;
+                    }
+                }
+                else if(indeks1<indeks3 && indeks2<indeks4){
+                    for(int i=indeks1+1;i<indeks3;i++){
+                        if(board.containsKey(slova.charAt(6-i)+brojevi.charAt(6-i))) return true;
+                    }
+                }
+                else if(indeks1<indeks3 && indeks2>indeks4){
+                    for(int i=indeks1+1;i<indeks3;i++){
+                        if(board.containsKey(slova.charAt(6-i)+brojevi.charAt(i))) return true;
+                    }
+                }
             }
             else if(indeks1==indeks3){
                 if(indeks2>indeks4){
@@ -42,7 +60,6 @@ public class Board {
                     }
                 }
             }
-        //}
         return false;
     }
     public Board(){
@@ -82,7 +99,7 @@ public class Board {
 
     }
     public void move(Class type, ChessPiece.Color color, String position) throws IllegalChessMoveException{
-            if(type.getName().equals("ba.unsa.etf.rpr.Knight")){
+            if(type.isInstance(new Knight("a1", ChessPiece.Color.WHITE))){//.getName().equals("ba.unsa.etf.rpr.Knight")){
                 for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                     if (entry.getValue() instanceof Knight) {
                         if (entry.getValue().getColor() == color) {
@@ -106,7 +123,7 @@ public class Board {
                         }
                     }
             }
-            else if(type.getName().equals("ba.unsa.etf.rpr.King")){
+            else if(type.isInstance(new King("a1", ChessPiece.Color.WHITE))){//getName().equals("ba.unsa.etf.rpr.King")){
             for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                 if (entry.getValue() instanceof King) {
                     if (entry.getValue().getColor() == color) {
@@ -130,11 +147,12 @@ public class Board {
                     }
                 }
         }
-        else if(type.getName().equals("ba.unsa.etf.rpr.Queen")){
+        else if(type.isInstance(new Queen("a1", ChessPiece.Color.WHITE))){
             for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                 if (entry.getValue() instanceof Queen) {
                     if (entry.getValue().getColor() == color) {
                         String oldPosition = entry.getKey();
+                        if(Preskace(oldPosition, position, entry.getClass()))
                         try {
                             if(board.containsKey(position)){
                                 board.get(oldPosition).move(position);
