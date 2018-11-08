@@ -237,8 +237,11 @@ public class Board {
                     }
             }
     }
-    public void move(String oldPosition, String newPosition){
-
+    public void move(String oldPosition, String newPosition) throws IllegalChessMoveException{
+        oldPosition=oldPosition.toLowerCase();
+        newPosition=newPosition.toLowerCase();
+            if(!board.containsKey(oldPosition)) throw new IllegalArgumentException("Nepostojeca figura.");
+            move(board.get(oldPosition).getClass(),board.get(oldPosition).getColor(), newPosition);
     }
     boolean isCheck(ChessPiece.Color color){
         return true;
