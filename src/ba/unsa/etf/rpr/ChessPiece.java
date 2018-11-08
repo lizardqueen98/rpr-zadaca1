@@ -28,13 +28,7 @@ public abstract class ChessPiece {
         }
         else throw new IllegalArgumentException("Neispravna pozicija");
     }
-
-    public void setPosition(String position) {
-        this.position = position;
+    public void move(String position) throws IllegalChessMoveException{
+        this.position=position;
     }
-
-    public void setBoja(Color boja) {
-        this.boja = boja;
-    }
-    public abstract void move(String position) throws IllegalChessMoveException;
 }

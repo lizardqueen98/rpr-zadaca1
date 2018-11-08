@@ -13,9 +13,9 @@ public class Pawn extends ChessPiece{
         int indeks2 = brojevi.indexOf(position.charAt(1));
         if(this.getPosition().charAt(0)!=position.charAt(0)) throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
         else if(this.getPosition().charAt(1)=='2' || this.getPosition().charAt(1)=='7'){
-            if(Math.abs(indeks2-indeks1)==2) this.setPosition(position);
+            if(Math.abs(indeks2-indeks1)==2) super.move(position);
         }
-        else if(Math.abs(indeks1-indeks2)==1) this.setPosition(position);
+        else if(Math.abs(indeks1-indeks2)==1) super.move(position);
         else throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
     }
 }
