@@ -6,12 +6,16 @@ public class Program {
      public static void main(String[] args) {
       Board b = new Board();
       Scanner ulaz = new Scanner(System.in);
-      String whiteMove;
-      String blackMove;
+      String whiteMove=null;
+      String blackMove=null;
+      boolean whiteMoved = false;
       do {
-          System.out.println("White move: ");
-          whiteMove = ulaz.nextLine();
-          if(whiteMove.equals("X")) break;
+          if(!whiteMoved) {
+              System.out.println("White move: ");
+              whiteMove = ulaz.nextLine();
+              if (whiteMove.equals("X")) break;
+          }
+          else whiteMoved=false;
           System.out.println("Black move: ");
           blackMove = ulaz.nextLine();
           if(blackMove.equals("X")) break;
@@ -38,6 +42,7 @@ public class Program {
 
                   }
               }
+              if(b.isCheck(ChessPiece.Color.WHITE)) System.out.println("Check!!!");
           }
           catch(Exception e){
               System.out.println("Illegal move.\nUnesite ponovo.");
@@ -66,9 +71,11 @@ public class Program {
 
                   }
               }
+              if(b.isCheck(ChessPiece.Color.BLACK)) System.out.println("Check!!!");
           }
           catch(Exception e){
               System.out.println("Illegal move.\nUnesite ponovo.");
+              whiteMoved=true;
           }
 
       }while(true);
