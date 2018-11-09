@@ -6,7 +6,9 @@ public class Queen extends ChessPiece {
     public Queen(String position, Color boja){
         super(position,boja);
     }
+    @Override
     public void move(String position) throws IllegalChessMoveException{
+        if(this.getPosition().equals(position)) throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
         new Queen(position,this.getColor());
         int indeks1 = slova.indexOf(toLowerCase(this.getPosition().charAt(0)));
         int indeks2 = brojevi.indexOf(this.getPosition().charAt(1));

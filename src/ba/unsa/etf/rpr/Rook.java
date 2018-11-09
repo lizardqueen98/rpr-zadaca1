@@ -8,6 +8,7 @@ public class Rook extends ChessPiece{
     }
     @Override
     public void move(String position) throws IllegalChessMoveException{
+        if(this.getPosition().equals(position)) throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
         new Rook(position,this.getColor());
         if(toLowerCase(this.getPosition().charAt(0))==toLowerCase(position.charAt(0))) super.move(position);
         else if(this.getPosition().charAt(1)==position.charAt(1)) super.move(position);

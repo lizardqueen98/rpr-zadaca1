@@ -8,6 +8,7 @@ public class Pawn extends ChessPiece{
     }
     @Override
     public void move(String position) throws IllegalChessMoveException{
+        if(this.getPosition().equals(position)) throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
         new Pawn(position,this.getColor());
         int indeks1 = brojevi.indexOf(this.getPosition().charAt(1));
         int indeks2 = brojevi.indexOf(position.charAt(1));
