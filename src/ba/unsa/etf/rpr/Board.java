@@ -290,24 +290,26 @@ public class Board {
             if (entry.getValue().getColor() != color) {
                 figurePosition = entry.getKey();
                 try {
-                    if(entry.getValue() instanceof Pawn){
+                    if (entry.getValue() instanceof Pawn) {
                         int indeks1 = brojevi.indexOf(kingPosition.charAt(1));
                         int indeks2 = brojevi.indexOf(figurePosition.charAt(1));
-                        int indeks3 = slova.indexOf(toLowerCase(kingPosition.charAt(0)));
-                        int indeks4 = slova.indexOf(toLowerCase(figurePosition.charAt(0)));
-                        if(color == ChessPiece.Color.WHITE){
-                            if(Math.abs(indeks3-indeks4)==1 && indeks1-indeks2==1) return true;
+                        int indeks3 = slova.indexOf(kingPosition.charAt(0));
+                        int indeks4 = slova.indexOf(figurePosition.charAt(0));
+                        if (entry.getValue().getColor() == ChessPiece.Color.WHITE) {
+                            if (Math.abs(indeks3 - indeks4) == 1 && indeks1 - indeks2 == 1) return true;
+                        } else if (entry.getValue().getColor() == ChessPiece.Color.BLACK) {
+                            if (Math.abs(indeks3 - indeks4) == 1 && indeks2 - indeks1 == 1) return true;
                         }
-                        else{
-                            if(Math.abs(indeks3-indeks4)==1 && indeks2-indeks1==1) return true;
-                        }
+                    } else {
+                        if (Preskace(figurePosition, kingPosition, entry.getValue().getClass()))
+                            throw new IllegalChessMoveException("Nelegalan potez.");
+                        board.get(figurePosition).move(kingPosition);
+                        //ako moze vracamo je na staro, jedino pijun ne moze unatrag pa njega moramo posebno
+                        board.get(figurePosition).move(figurePosition);
+                        return true;
                     }
-                    board.get(figurePosition).move(kingPosition);
-                    //ako moze vracamo je na staro, jedino pijun ne moze unatrag pa njega moramo posebno
-                    board.get(figurePosition).move(figurePosition);
-                    return true;
-                } catch (IllegalChessMoveException e) {
-                    continue;
+                } catch (IllegalChessMoveException e){
+
                 }
             }
             return false;

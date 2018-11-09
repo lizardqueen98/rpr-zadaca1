@@ -4,14 +4,15 @@ public class Main {
      public static void main(String[] args) {
          Board b = new Board();
          try {
-             /*b.move(Knight.class, ChessPiece.Color.WHITE, "C3");
-             System.out.println(b.board.get("c3").getPosition());
-             if(b.board.containsKey("c3")) System.out.println("ima");
-             if(b.board.containsKey("b1")) System.out.println("nema");*/
-             b.move(Pawn.class, ChessPiece.Color.BLACK, "b8");
-         }
-         catch(IllegalChessMoveException e){
+                 b.move(Pawn.class, ChessPiece.Color.WHITE, "E4");
+                 b.move(Pawn.class, ChessPiece.Color.WHITE, "E5");
+                 b.move(Pawn.class, ChessPiece.Color.WHITE, "E6");
+                 b.move(Pawn.class, ChessPiece.Color.WHITE, "D7");
+                 b.move(Pawn.class, ChessPiece.Color.WHITE, "C8");
+                 b.move(Queen.class, ChessPiece.Color.WHITE, "E2");
+         } catch(Exception e) {
              System.out.println(e.getMessage());
          }
+         if(b.isCheck(ChessPiece.Color.BLACK))System.out.println("sah");
     }
 }
