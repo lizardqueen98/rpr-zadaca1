@@ -246,7 +246,7 @@ public class Board {
                                 board.remove(oldPosition);
                                 return;
                             }
-                            else if(board.containsKey(position)){
+                            else if(position.charAt(0)!=oldPosition.charAt(0) && board.containsKey(position)){
                                 try {
                                     board.get(oldPosition).move(position);
                                 }
@@ -261,6 +261,7 @@ public class Board {
 
                     }
             }
+        throw new IllegalChessMoveException("Nelegalan potez.");
     }
     public void move(String oldPosition, String newPosition) throws IllegalChessMoveException{
         oldPosition=oldPosition.toLowerCase();
