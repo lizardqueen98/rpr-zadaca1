@@ -100,9 +100,9 @@ public class Board {
     }
     public void move(Class type, ChessPiece.Color color, String position) throws IllegalChessMoveException{
         //posto prima i velika i mala slova, pretvaramo sve u mala da je laksa manipulacija sa njima
-        //ako su iste boje baca izuzetak
-        if(board.get(position).getColor()==color) throw new IllegalChessMoveException("Nelegalan potez.");
         position=position.toLowerCase();
+        //ako su iste boje baca izuzetak
+        if(board.containsKey(position) && board.get(position).getColor()==color) throw new IllegalChessMoveException("Nelegalan potez.");
             if(type.equals(Knight.class)){
                 for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                     if (entry.getValue() instanceof Knight) {
