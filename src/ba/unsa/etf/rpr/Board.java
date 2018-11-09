@@ -5,11 +5,9 @@ import java.util.TreeMap;
 
 import static ba.unsa.etf.rpr.ChessPiece.brojevi;
 import static ba.unsa.etf.rpr.ChessPiece.slova;
-import static java.lang.Character.toLowerCase;
-
 
 public class Board {
-    public Map<String,ChessPiece> board;
+    private Map<String,ChessPiece> board;
     private boolean Preskace(String position1, String position2, Class type){
         int indeks1 = slova.indexOf(position1.charAt(0));
         int indeks2 = brojevi.indexOf(position1.charAt(1));
@@ -24,6 +22,7 @@ public class Board {
                 else if(indeks1>indeks3 && indeks2<indeks4){
                     for(int i=indeks3+1;i<indeks1;i++){
                         if(board.containsKey(String.valueOf(slova.charAt(i))+String.valueOf(brojevi.charAt(6-i)))) return true;
+                        //ovo je ustvari 7-i-1 jer smo ga uvecali
                     }
                 }
                 else if(indeks1<indeks3 && indeks2<indeks4){
@@ -100,6 +99,7 @@ public class Board {
 
     }
     public void move(Class type, ChessPiece.Color color, String position) throws IllegalChessMoveException{
+        //posto prima i velika i mala slova, pretvaramo sve u mala da je laksa manipulacija sa njima
         position=position.toLowerCase();
             if(type.equals(Knight.class)){
                 for(Map.Entry<String,ChessPiece> entry : board.entrySet())
@@ -110,6 +110,8 @@ public class Board {
                                 board.get(oldPosition).move(position);
                             }
                             catch(IllegalChessMoveException e) {
+                                //preskace sve naredne naredbe kako bi nasli figuru za koju je pomjeranje moguce
+                                //ako nema niti jedne na samom kraju fje se baca izuzetak
                                 continue;
                             }
                             if(board.containsKey(position)){
@@ -125,7 +127,7 @@ public class Board {
                         }
                     }
                     throw new IllegalChessMoveException("Nelegalan potez.");
-            }
+                }
             else if(type.equals(King.class)){
             for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                 if (entry.getValue() instanceof King) {
@@ -150,12 +152,14 @@ public class Board {
                     }
                 }
                 throw new IllegalChessMoveException("Nelegalan potez.");
-        }
+            }
         else if(type.equals(Queen.class)){
             for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                 if (entry.getValue() instanceof Queen) {
                     if (entry.getValue().getColor() == color) {
                         String oldPosition = entry.getKey();
+                        //provjeravamo da li ima figura izmedju pocetne i date pozicije
+                        //jedan od parametara je tip klase, pa se u zavisnosti od toga u fji ispituju razliciti uslovi
                         if(Preskace(oldPosition, position, Queen.class)) throw new IllegalChessMoveException("Nelegalan potez.");
                         try {
                             board.get(oldPosition).move(position);
@@ -176,7 +180,7 @@ public class Board {
                     }
                 }
                 throw new IllegalChessMoveException("Nelegalan potez.");
-        }
+            }
             else if(type.equals(Bishop.class)){
                 for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                     if (entry.getValue() instanceof Bishop) {
@@ -235,7 +239,9 @@ public class Board {
                     if (entry.getValue() instanceof Pawn){
                         if (entry.getValue().getColor() == color) {
                             String oldPosition = entry.getKey();
+                            //ako iden unaprijed ne smije biti druge figure na odredisnom mjestu
                             if(position.charAt(0)==oldPosition.charAt(0) && !board.containsKey(position)){
+                                //ako ide dva mjesta unaprijed ne smije preskakati
                                 if(oldPosition.charAt(1)=='2'){
                                     if(board.containsKey(String.valueOf(position.charAt(0))+"3"))
                                         throw new IllegalChessMoveException("Nelegalan potez.");
@@ -254,6 +260,7 @@ public class Board {
                                 board.remove(oldPosition);
                                 return;
                             }
+                            //moze gore lijevo/desno samo ako jede
                             else if(position.charAt(0)!=oldPosition.charAt(0) && board.containsKey(position)){
                                 try {
                                     board.get(oldPosition).move(position);
@@ -268,9 +275,9 @@ public class Board {
                         }
 
                     }
+                }
+                throw new IllegalChessMoveException("Nelegalan potez.");
             }
-        throw new IllegalChessMoveException("Nelegalan potez.");
-    }
     public void move(String oldPosition, String newPosition) throws IllegalChessMoveException{
         oldPosition=oldPosition.toLowerCase();
         newPosition=newPosition.toLowerCase();
@@ -278,7 +285,7 @@ public class Board {
             move(board.get(oldPosition).getClass(),board.get(oldPosition).getColor(), newPosition);
     }
     boolean isCheck(ChessPiece.Color color) {
-        String kingPosition = new String();
+        String kingPosition=new String();
         for (Map.Entry<String, ChessPiece> entry : board.entrySet())
             if (entry.getValue() instanceof King) {
                 if (entry.getValue().getColor() == color) {
@@ -290,6 +297,7 @@ public class Board {
             if (entry.getValue().getColor() != color) {
                 figurePosition = entry.getKey();
                 try {
+                    //jedino pijun ne moze unatrag pa njega moramo posebno, a za ostale figure ako moze vracamo je na staro
                     if (entry.getValue() instanceof Pawn) {
                         int indeks1 = brojevi.indexOf(kingPosition.charAt(1));
                         int indeks2 = brojevi.indexOf(figurePosition.charAt(1));
@@ -304,7 +312,6 @@ public class Board {
                         if (Preskace(figurePosition, kingPosition, entry.getValue().getClass()))
                             throw new IllegalChessMoveException("Nelegalan potez.");
                         board.get(figurePosition).move(kingPosition);
-                        //ako moze vracamo je na staro, jedino pijun ne moze unatrag pa njega moramo posebno
                         board.get(figurePosition).move(figurePosition);
                         return true;
                     }
