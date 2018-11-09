@@ -236,6 +236,14 @@ public class Board {
                         if (entry.getValue().getColor() == color) {
                             String oldPosition = entry.getKey();
                             if(position.charAt(0)==oldPosition.charAt(0) && !board.containsKey(position)){
+                                if(oldPosition.charAt(1)=='2'){
+                                    if(board.containsKey(String.valueOf(position.charAt(0))+"3"))
+                                        throw new IllegalChessMoveException("Nelegalan potez.");
+                                }
+                                else if(oldPosition.charAt(1)=='7'){
+                                    if(board.containsKey(String.valueOf(position.charAt(0))+"6"))
+                                        throw new IllegalChessMoveException("Nelegalan potez.");
+                                }
                                 try {
                                     board.get(oldPosition).move(position);
                                 }
