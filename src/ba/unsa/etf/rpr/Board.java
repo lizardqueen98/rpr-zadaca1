@@ -233,6 +233,31 @@ public class Board {
             else if(type.equals(Pawn.class)){
                 for(Map.Entry<String,ChessPiece> entry : board.entrySet())
                     if (entry.getValue() instanceof Pawn){
+                        if (entry.getValue().getColor() == color) {
+                            String oldPosition = entry.getKey();
+                            if(position.charAt(0)==oldPosition.charAt(0) && !board.containsKey(position)){
+                                try {
+                                    board.get(oldPosition).move(position);
+                                }
+                                catch(IllegalChessMoveException e) {
+                                    continue;
+                                }
+                                board.put(position, entry.getValue());
+                                board.remove(oldPosition);
+                                return;
+                            }
+                            else if(board.containsKey(position)){
+                                try {
+                                    board.get(oldPosition).move(position);
+                                }
+                                catch(IllegalChessMoveException e) {
+                                    continue;
+                                }
+                                board.replace(position,entry.getValue());
+                                board.remove(oldPosition);
+                                return;
+                            }
+                        }
 
                     }
             }
