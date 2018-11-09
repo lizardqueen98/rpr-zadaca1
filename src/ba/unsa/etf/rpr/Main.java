@@ -8,7 +8,7 @@ public class Main {
              System.out.println(b.board.get("c3").getPosition());
              if(b.board.containsKey("c3")) System.out.println("ima");
              if(b.board.containsKey("b1")) System.out.println("nema");*/
-             b.move(Knight.class, ChessPiece.Color.BLACK, "a2");
+             b.move(Pawn.class, ChessPiece.Color.BLACK, "b8");
          }
          catch(IllegalChessMoveException e){
              System.out.println(e.getMessage());

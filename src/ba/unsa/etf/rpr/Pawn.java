@@ -13,12 +13,19 @@ public class Pawn extends ChessPiece{
         int indeks2 = brojevi.indexOf(position.charAt(1));
         int indeks3 = slova.indexOf(toLowerCase(this.getPosition().charAt(0)));
         int indeks4 = slova.indexOf(toLowerCase(position.charAt(0)));
-        if((this.getPosition().charAt(1)=='2' || this.getPosition().charAt(1)=='7') && indeks2-indeks1==2){
-            super.move(position);
+        if(this.getColor()==Color.WHITE) {
+            if ((this.getPosition().charAt(1) == '2' || this.getPosition().charAt(1) == '7') && indeks2 - indeks1 == 2) {
+                super.move(position);
+            } else if (indeks2 - indeks1 == 1 && (Math.abs(indeks3 - indeks4) == 1 || Math.abs(indeks3 - indeks4) == 0)) {
+                super.move(position);
+            } else throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
         }
-        else if(indeks2-indeks1==1 && (Math.abs(indeks3-indeks4)==1 || Math.abs(indeks3-indeks4)==0)){
-            super.move(position);
+        else{
+            if ((this.getPosition().charAt(1) == '2' || this.getPosition().charAt(1) == '7') && indeks1 - indeks2 == 2) {
+                super.move(position);
+            } else if (indeks1 - indeks2 == 1 && (Math.abs(indeks3 - indeks4) == 1 || Math.abs(indeks3 - indeks4) == 0)) {
+                super.move(position);
+            } else throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
         }
-        else throw new IllegalChessMoveException("Nedozvoljeno pomjeranje.");
     }
 }
