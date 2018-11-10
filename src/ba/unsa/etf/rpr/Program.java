@@ -34,9 +34,11 @@ public class Program {
                           case 'N':
                               b.move(Knight.class, ChessPiece.Color.WHITE, whiteMove.substring(1));
                               break;
+                          default: throw new IllegalChessMoveException("Nelegalna pozicija");
 
                       }
                   }
+                  else throw new IllegalChessMoveException("Nelegalna pozicija");
                   if (b.isCheck(ChessPiece.Color.WHITE)) System.out.println("Check!!!");
               } catch (Exception e) {
                   System.out.println("Illegal move.\nUnesite ponovo.");
@@ -67,9 +69,11 @@ public class Program {
                       case 'N':
                           b.move(Knight.class, ChessPiece.Color.BLACK, blackMove.substring(1));
                           break;
+                      default: throw new IllegalChessMoveException("Nelegalna pozicija");
 
                   }
               }
+              else throw new IllegalChessMoveException("Nelegalna pozicija");
               if(b.isCheck(ChessPiece.Color.BLACK)) System.out.println("Check!!!");
           }
           catch(Exception e){
