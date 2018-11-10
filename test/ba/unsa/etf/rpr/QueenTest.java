@@ -37,5 +37,17 @@ class QueenTest {
                 ()->q.move("h6")
         );
     }
-
+    @org.junit.jupiter.api.Test
+    void constructor1() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Queen("K2", ChessPiece.Color.WHITE)
+        );
+    }
+    @org.junit.jupiter.api.Test
+    void constructor3() {
+        assertDoesNotThrow(
+                () -> new Queen("G4", ChessPiece.Color.WHITE)
+        );
+    }
 }

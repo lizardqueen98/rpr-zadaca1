@@ -33,4 +33,24 @@ class BishopTest {
                 ()->b.move("h6")
         );
     }
+    @org.junit.jupiter.api.Test
+    void constructor1() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Bishop("K2", ChessPiece.Color.WHITE)
+        );
+    }
+    @org.junit.jupiter.api.Test
+    void constructor2() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Bishop("H10", ChessPiece.Color.WHITE)
+        );
+    }
+    @org.junit.jupiter.api.Test
+    void constructor3() {
+        assertDoesNotThrow(
+                () -> new Bishop("G4", ChessPiece.Color.WHITE)
+        );
+    }
 }
