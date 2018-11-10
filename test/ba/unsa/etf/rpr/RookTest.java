@@ -32,5 +32,17 @@ class RookTest {
     void constructorTest(){
         assertThrows(IllegalArgumentException.class,()->new Rook("D10",ChessPiece.Color.BLACK));
     }
-
+    @org.junit.jupiter.api.Test
+    void constructor1() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Rook("K2", ChessPiece.Color.WHITE)
+        );
+    }
+    @org.junit.jupiter.api.Test
+    void constructor3() {
+        assertDoesNotThrow(
+                () -> new Rook("G4", ChessPiece.Color.WHITE)
+        );
+    }
 }
